@@ -9,14 +9,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Chatgpt = void 0;
+exports.Md = void 0;
 const path_1 = require("path");
 const core_1 = require("@angular-devkit/core");
 const pluralize = require("pluralize");
 const basic_kodyfire_1 = require("basic-kodyfire");
 const engine_1 = require("./engine");
 const esm_ts_1 = require("esm-ts");
-class Chatgpt extends basic_kodyfire_1.Concept {
+class Md extends basic_kodyfire_1.Concept {
     constructor(concept, technology) {
         super(concept, technology);
         this.extension = ".md"; // replace with your extension
@@ -101,7 +101,7 @@ class Chatgpt extends basic_kodyfire_1.Concept {
                 }
             }
             // @ts-ignore
-            _data.thread = thread.join("<br/>");
+            _data.thread = thread.join("\\");
             yield api.closeSession();
             // We resolve the template name here
             _data.template = this.resolveTemplateName(_data.template, this.name);
@@ -151,5 +151,5 @@ class Chatgpt extends basic_kodyfire_1.Concept {
             : (0, path_1.relative)(process.cwd(), __dirname);
     }
 }
-exports.Chatgpt = Chatgpt;
-//# sourceMappingURL=chatgpt.js.map
+exports.Md = Md;
+//# sourceMappingURL=md.js.map

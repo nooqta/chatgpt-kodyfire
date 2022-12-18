@@ -48,11 +48,12 @@ class Concept extends basic_kodyfire_1.Concept {
     }
     // resolve template name if it does not have template extension
     resolveTemplateName(templateName, name) {
-        if (templateName.includes('.template'))
+        if (templateName && templateName.includes('.template'))
             return templateName;
         // The format of a template : {conceptName}.{templateName}.{extension}.template
         // example : concept.api.php.template
-        return `${name.toLowerCase()}.${templateName}${this.extension}.template`;
+        templateName = templateName ? `.${templateName}` : '';
+        return `${name.toLowerCase()}${templateName}${this.extension}.template`;
     }
     getFilename(data) {
         if (data.filename)

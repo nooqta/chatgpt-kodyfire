@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.schema = exports.chatgptArray = exports.conceptArray = exports.chatgpt = exports.concept = void 0;
+exports.schema = exports.mdArray = exports.conceptArray = exports.md = exports.concept = void 0;
 exports.concept = {
     type: 'object',
     properties: {
@@ -11,7 +11,7 @@ exports.concept = {
         outputDir: { type: 'string' },
     },
 };
-exports.chatgpt = {
+exports.md = {
     type: 'object',
     properties: {
         name: { type: 'string' },
@@ -23,9 +23,9 @@ exports.conceptArray = {
     type: 'array',
     items: exports.concept,
 };
-exports.chatgptArray = {
+exports.mdArray = {
     type: 'array',
-    items: exports.chatgpt,
+    items: exports.md,
 };
 exports.schema = {
     type: 'object',
@@ -34,7 +34,7 @@ exports.schema = {
         name: { type: 'string' },
         rootDir: { type: 'string' },
         concept: exports.conceptArray,
-        chatgpt: exports.chatgptArray,
+        md: exports.mdArray,
     },
     required: ['name'],
 };

@@ -9,7 +9,7 @@ export const concept = {
   },
 };
 
-export const chatgpt = {
+export const md = {
   type: 'object',
   properties: {
     name: { type: 'string' },
@@ -22,9 +22,9 @@ export const conceptArray = {
   type: 'array',
   items: concept,
 };
-export const chatgptArray = {
+export const mdArray = {
   type: 'array',
-  items: chatgpt,
+  items: md,
 };
 export const schema = {
   type: 'object',
@@ -33,7 +33,7 @@ export const schema = {
     name: { type: 'string' },
     rootDir: { type: 'string' },
     concept: conceptArray,
-    chatgpt: chatgptArray,
+    md: mdArray,
   },
   required: ['name'],
 };

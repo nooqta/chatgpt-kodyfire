@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": "tsconfig",
-    "lib": ["es2018"],
+    "lib": ["ESNext"],
     "declaration": true,
     "module": "commonjs",
     "moduleResolution": "node",

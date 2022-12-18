@@ -12,7 +12,7 @@ export declare const concept: {
         };
     };
 };
-export declare const chatgpt: {
+export declare const md: {
     type: string;
     properties: {
         name: {
@@ -41,7 +41,7 @@ export declare const conceptArray: {
         };
     };
 };
-export declare const chatgptArray: {
+export declare const mdArray: {
     type: string;
     items: {
         type: string;
@@ -85,7 +85,7 @@ export declare const schema: {
                 };
             };
         };
-        chatgpt: {
+        md: {
             type: string;
             items: {
                 type: string;

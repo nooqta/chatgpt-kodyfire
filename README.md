@@ -1,57 +1,70 @@
 # ChatGPT-kodyfire
-![Version](https://img.shields.io/badge/version-0.1.1-blue.svg?cacheSeconds=2592000)
+![Version](https://img.shields.io/badge/version-0.1.7-blue.svg?cacheSeconds=2592000)
 [![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)](https://github.com/nooqta/kodyfire#install-a-kody)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/nooqta/kodyfire/blob/main/LICENSE)
 
-> Interact with chatGPT chat bot. saves the converation into word, pdf, excel and more using [Kodyfire](https://github.com/nooqta/kodyfire).
+> Interact with the unofficial [ChatGPT](https://openai.com/blog/chatgpt/) API chatbot and export the conversation to Markdown and more using [Kodyfire](https://github.com/nooqta/kodyfire).
 
 ### [Homepage](https://github.com/nooqta/kodyfire)
 
 ## Requirements
 
-chatgpt-kodyfire requires the [kodyfire-cli](https://github.com/nooqta/kodyfire) to be installed
+1. [kodyfire-cli](https://github.com/nooqta/kodyfire) to be installed
 
 ```sh
 npm install -g kodyfire-cli
 ```
+
+2. Node version >= 18
+3. `OPENAI_EMAIL` and `OPENAI_PASSWORD` in .env
+these are your [Openai](https://chat.openai.com/auth/login) release the official api credentials.
+4. The package uses [chatgpt-api](https://github.com/transitive-bullshit/chatgpt-api). Puppeteer is used to handle the authentication. You will need to manually handle any recaptcha. This will probably change once [Openai](https://openai.com/blog/chatgpt/) release the official api.
+
 ## Install
 
 ```sh
 npm i chatgpt-kodyfire
 ```
 
+
+## 
 ## Usage
 
-### Method 1: As a generator
-In order to generate your artifacts, run the `generate` command. The syntax is `kody generate|g [kody] [concept]`. If you ommit `kody` and `concept` the assistant will prompt you to select them. As an example, run the following command from your terminal:
+In order to generate your exports, run the `generate` command. As an example, run the following command from your terminal:
+
 ```sh
-kody generate chatgpt chatgpt
+kody generate chatgpt:md topic-no-space
 ```
 
 ### Available concepts 
 
-#### `chatgpt` (default)
-> Initiate a new chat session and saves the output to the target
+#### `md`
+> Initiate a new chat session and saves the output to an md file.
 
+#### `x`
+> @todo: requested concepts by the community.
 ##### Usage
 ```bash
-kody g chatgpt chatgpt
-# or the colon syntax
-kody g chatgpt:chatgpt
+kody g chatgpt:md
 ```
 ##### Arguments
 
-- `kody` _string_ - The name of the kody. ChatGPT in our case. You can have multiple kodies installed. To list your installed kodies with your project run `kody list`
+- `kody` _string_ - The name of the kody. chatgpt in our case. You can have multiple kodies installed. To list your installed kodies with your project run `kody list`
 - `concept` _string_ - The name of the concept you want to execute. To list the concepts of your installed kody (chatgpt), run `kody list chatgpt` 
-- `topic` _string_ - The topic question to start the conversation.
+- `topic` _string_ - The topic question to start the conversation with no spaces. This will be used as filename
 
 
 
 
 ## 📅 Future Features
 - Output conversation to a text file
+- Extract code and save using provided extension
 - Output conversation to Word
 - Output conversation to Excel or CSV
+- Live run code and feedback output back to Chatgpt
+- Generate an image using `Dalle`|other and a description provided by chatgpt
+- Use Google [https://github.com/googleapis/nodejs-text-to-speech](nodejs-text-to-speech)
+- Generate an audio file using Google text-to-speech api
 
 ## Author
 Anis Marrouchi
@@ -83,4 +96,3 @@ This project is [MIT](https://github.com/nooqta/kodyfire/blob/main/LICENSE) lice
 
 ***
 _This README was generated with ❤️ by [readme-kodyfire](https://github.com/nooqta/readme-kodyfire)_
-# chatgpt-kodyfire

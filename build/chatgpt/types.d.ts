@@ -1,9 +1,9 @@
-export declare type ContentType = 'text';
-export declare type Role = 'user' | 'assistant';
+export type ContentType = 'text';
+export type Role = 'user' | 'assistant';
 /**
  * https://chat.openapi.com/api/auth/session
  */
-export declare type SessionResult = {
+export type SessionResult = {
     /**
      * Authenticated user
      */
@@ -21,7 +21,7 @@ export declare type SessionResult = {
      */
     error?: string | null;
 };
-export declare type User = {
+export type User = {
     /**
      * ID of the user
      */
@@ -54,13 +54,13 @@ export declare type User = {
 /**
  * https://chat.openapi.com/backend-api/models
  */
-export declare type ModelsResult = {
+export type ModelsResult = {
     /**
      * Array of models
      */
     models: Model[];
 };
-export declare type Model = {
+export type Model = {
     /**
      * Name of the model
      */
@@ -77,7 +77,7 @@ export declare type Model = {
 /**
  * https://chat.openapi.com/backend-api/moderations
  */
-export declare type ModerationsJSONBody = {
+export type ModerationsJSONBody = {
     /**
      * Input for the moderation decision
      */
@@ -87,11 +87,11 @@ export declare type ModerationsJSONBody = {
      */
     model: AvailableModerationModels;
 };
-export declare type AvailableModerationModels = 'text-moderation-playground';
+export type AvailableModerationModels = 'text-moderation-playground';
 /**
  * https://chat.openapi.com/backend-api/moderations
  */
-export declare type ModerationsJSONResult = {
+export type ModerationsJSONResult = {
     /**
      * Whether or not the input is flagged
      */
@@ -108,7 +108,7 @@ export declare type ModerationsJSONResult = {
 /**
  * https://chat.openapi.com/backend-api/conversation
  */
-export declare type ConversationJSONBody = {
+export type ConversationJSONBody = {
     /**
      * The action to take
      */
@@ -130,7 +130,7 @@ export declare type ConversationJSONBody = {
      */
     parent_message_id: string;
 };
-export declare type Prompt = {
+export type Prompt = {
     /**
      * The content of the prompt
      */
@@ -144,7 +144,7 @@ export declare type Prompt = {
      */
     role: Role;
 };
-export declare type PromptContent = {
+export type PromptContent = {
     /**
      * The content type of the prompt
      */
@@ -157,7 +157,7 @@ export declare type PromptContent = {
 /**
  * https://chat.openapi.com/backend-api/conversation/message_feedback
  */
-export declare type MessageFeedbackJSONBody = {
+export type MessageFeedbackJSONBody = {
     /**
      * The ID of the conversation
      */
@@ -179,8 +179,8 @@ export declare type MessageFeedbackJSONBody = {
      */
     text?: string;
 };
-export declare type MessageFeedbackTags = 'harmful' | 'false' | 'not-helpful';
-export declare type MessageFeedbackResult = {
+export type MessageFeedbackTags = 'harmful' | 'false' | 'not-helpful';
+export type MessageFeedbackResult = {
     /**
      * The message ID
      */
@@ -202,13 +202,13 @@ export declare type MessageFeedbackResult = {
      */
     text?: string;
 };
-export declare type MessageFeedbackRating = 'thumbsUp' | 'thumbsDown';
-export declare type ConversationResponseEvent = {
+export type MessageFeedbackRating = 'thumbsUp' | 'thumbsDown';
+export type ConversationResponseEvent = {
     message?: Message;
     conversation_id?: string;
     error?: string | null;
 };
-export declare type Message = {
+export type Message = {
     id: string;
     content: MessageContent;
     role: string;
@@ -220,12 +220,12 @@ export declare type Message = {
     recipient: string;
     metadata: MessageMetadata;
 };
-export declare type MessageContent = {
+export type MessageContent = {
     content_type: string;
     parts: string[];
 };
-export declare type MessageMetadata = any;
-export declare type SendMessageOptions = {
+export type MessageMetadata = any;
+export type SendMessageOptions = {
     conversationId?: string;
     parentMessageId?: string;
     timeoutMs?: number;
@@ -233,4 +233,4 @@ export declare type SendMessageOptions = {
     onConversationResponse?: (response: ConversationResponseEvent) => void;
     abortSignal?: AbortSignal;
 };
-export declare type SendConversationMessageOptions = Omit<SendMessageOptions, 'conversationId' | 'parentMessageId'>;
+export type SendConversationMessageOptions = Omit<SendMessageOptions, 'conversationId' | 'parentMessageId'>;

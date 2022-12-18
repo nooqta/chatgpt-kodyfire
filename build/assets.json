@@ -11,8 +11,11 @@
             }
         },
         {
-            "name": "chatgpt",
-            "outputDir": ""
+            "name": "md",
+            "outputDir": "",
+            "template": {
+                "path": "templates/"
+            }
         }
     ]
 }

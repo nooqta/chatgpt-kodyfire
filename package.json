@@ -1,6 +1,6 @@
 {
   "name": "chatgpt-kodyfire",
-  "version": "0.0.1",
+  "version": "0.1.7",
   "description": "Generate x with chatgpt kodyfire",
   "main": "build/index.js",
   "scripts": {
@@ -21,7 +21,10 @@
     "ajv": "^8.6.3",
     "ava": "^5.1.0",
     "basic-kodyfire": "^0.1.4",
+    "chatgpt": "^3.2.4",
+    "cli-md": "^1.2.0",
     "dotenv-safe": "^8.2.0",
+    "esm-ts": "^0.0.3",
     "eventsource-parser": "^0.0.5",
     "expiry-map": "^2.0.0",
     "fs-extra": "^10.0.0",
@@ -29,11 +32,17 @@
     "handlebars-delimiters": "^1.0.0",
     "kodyfire-core": "^0.1.4",
     "moment": "^2.29.1",
+    "ora": "^6.1.2",
     "p-timeout": "^6.0.0",
     "pluralize": "^8.0.0",
+    "prompter": "^0.0.5",
+    "prompts": "^2.4.2",
+    "puppeteer": "^19.4.1",
     "remark": "^14.0.2",
+    "remark-parse": "^10.0.1",
     "strip-markdown": "^5.0.0",
-    "typescript": "~4.5.5",
+    "typescript": "^4.9.3",
+    "undici": "^5.14.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
@@ -42,5 +51,6 @@
     "@types/pluralize": "0.0.29",
     "@types/uuid": "^9.0.0",
     "copyfiles": "^2.4.1"
-  }
+  },
+  "gitHead": "643ec6c1f1f27f6a943b09acb1f9d82785bdd803"
 }

@@ -30,7 +30,7 @@ export declare class Kody extends BaseKody {
                     };
                 };
             };
-            chatgpt: {
+            md: {
                 type: string;
                 items: {
                     type: string;
