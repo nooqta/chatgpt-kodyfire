@@ -17,8 +17,8 @@ npm install -g kodyfire-cli
 
 2. Node version >= 18
 3. `OPENAI_EMAIL` and `OPENAI_PASSWORD` in .env
-these are your [Openai](https://chat.openai.com/auth/login) release the official api credentials.
-4. The package uses [chatgpt-api](https://github.com/transitive-bullshit/chatgpt-api). Puppeteer is used to handle the authentication. You will need to manually handle any recaptcha. This will probably change once [Openai](https://openai.com/blog/chatgpt/) release the official api.
+these are your [Openai](https://chat.openai.com/auth/login) credentials.
+4. The package uses [chatgpt-api](https://github.com/transitive-bullshit/chatgpt-api). Puppeteer is used to handle the authentication. You will need to manually handle any recaptcha. This will probably change once [Openai](https://openai.com/blog/chatgpt/) releases the official api.
 
 ## Install
 
