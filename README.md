@@ -40,12 +40,22 @@ kody generate chatgpt:md topic-no-space
 
 #### `md`
 > Initiate a new chat session and saves the output to an md file.
-
+##### Usage
+```bash
+kody g chatgpt:md topic
+```
 #### `text`
 > Initiate a new chat session and saves the output to a text file.
 ##### Usage
 ```bash
 kody g chatgpt:text topic
+```
+
+#### `tts`
+> Initiate a new chat session, save and reads out the response using Google Text-to-speech. The output is also saved to a text file. Requires a google cloud project with the text-to-speech API enabled. Also You need to login using the google cli `gcloud auth application-default login`
+##### Usage
+```bash
+kody g chatgpt:tts topic
 ```
 ##### Arguments
 
