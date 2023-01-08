@@ -67,9 +67,9 @@ kody g chatgpt:tts topic
 
 
 ## 📅 Future Features
--  ~~Output conversation to a text file ~~
--  ~~Use Google [https://github.com/googleapis/nodejs-text-to-speech](nodejs-text-to-speech) ~~
--  ~~Generate an audio file using Google text-to-speech api ~~
+-  ~Output conversation to a text file~
+-  ~Use Google [https://github.com/googleapis/nodejs-text-to-speech](nodejs-text-to-speech)~
+-  ~Generate an audio file using Google text-to-speech api~
 - Extract code and save it to [a] file(s)
 - Generate an image using `Dalle`|other and a description provided by chatgpt
 - Generate a video using `Synthesia` API and Chatgpt
