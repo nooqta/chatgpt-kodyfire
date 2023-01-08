@@ -3,7 +3,7 @@
 [![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)](https://github.com/nooqta/kodyfire#install-a-kody)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/nooqta/kodyfire/blob/main/LICENSE)
 
-> Interact with the unofficial [ChatGPT](https://openai.com/blog/chatgpt/) API chatbot and export the conversation to Markdown and more using [Kodyfire](https://github.com/nooqta/kodyfire).
+> Interact with the unofficial [ChatGPT](https://openai.com/blog/chatgpt/) API chatbot and export the conversation to Markdown, Text, MP3 and more using [Kodyfire](https://github.com/nooqta/kodyfire).
 
 ### [Homepage](https://github.com/nooqta/kodyfire)
 
