@@ -23,6 +23,13 @@
             "template": {
                 "path": "templates/"
             }
+        },
+        {
+            "name": "tts",
+            "outputDir": "",
+            "template": {
+                "path": "templates/"
+            }
         }
     ]
 }

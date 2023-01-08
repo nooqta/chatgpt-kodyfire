@@ -36,6 +36,18 @@ export declare const text: {
     };
     required: string[];
 };
+export declare const tts: {
+    type: string;
+    properties: {
+        name: {
+            type: string;
+        };
+        outputDir: {
+            type: string;
+        };
+    };
+    required: string[];
+};
 export declare const conceptArray: {
     type: string;
     items: {
@@ -69,6 +81,21 @@ export declare const mdArray: {
     };
 };
 export declare const textArray: {
+    type: string;
+    items: {
+        type: string;
+        properties: {
+            name: {
+                type: string;
+            };
+            outputDir: {
+                type: string;
+            };
+        };
+        required: string[];
+    };
+};
+export declare const ttsArray: {
     type: string;
     items: {
         type: string;
@@ -128,6 +155,21 @@ export declare const schema: {
             };
         };
         text: {
+            type: string;
+            items: {
+                type: string;
+                properties: {
+                    name: {
+                        type: string;
+                    };
+                    outputDir: {
+                        type: string;
+                    };
+                };
+                required: string[];
+            };
+        };
+        tts: {
             type: string;
             items: {
                 type: string;

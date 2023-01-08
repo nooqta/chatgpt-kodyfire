@@ -9,14 +9,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Text = void 0;
+exports.Tts = void 0;
 const path_1 = require("path");
 const core_1 = require("@angular-devkit/core");
 const pluralize = require("pluralize");
 const basic_kodyfire_1 = require("basic-kodyfire");
 const engine_1 = require("./engine");
 const esm_ts_1 = require("esm-ts");
-class Text extends basic_kodyfire_1.Concept {
+const fs = require('fs');
+const util = require('util');
+class Tts extends basic_kodyfire_1.Concept {
     constructor(concept, technology) {
         super(concept, technology);
         this.extension = ".txt"; // replace with your extension
@@ -101,7 +103,7 @@ class Text extends basic_kodyfire_1.Concept {
                 }
             }
             // @ts-ignore
-            _data.thread = thread.join("\\");
+            _data.thread = thread;
             yield api.closeSession();
             // We resolve the template name here
             _data.template = this.resolveTemplateName(_data.template, this.name);
@@ -112,9 +114,30 @@ class Text extends basic_kodyfire_1.Concept {
     }
     prompt(res, thread, prompts, keepConversation, prompt) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { response } = res;
+            let { response } = res;
             const md = require("cli-md");
-            thread.push(yield this.markdownToText(response));
+            const text = yield this.markdownToText(response);
+            thread.push(text);
+            const textToSpeech = require('@google-cloud/text-to-speech');
+            // Creates a client
+            const client = new textToSpeech.TextToSpeechClient();
+            // Construct the request
+            const request = {
+                input: { text: text },
+                // Select the language and SSML voice gender (optional)
+                voice: { languageCode: "ar-XA", name: "ar-XA-Wavenet-B" },
+                // select the type of audio encoding
+                audioConfig: { audioEncoding: 'MP3' },
+            };
+            // Performs the text-to-speech request
+            const [ttsResponse] = yield client.synthesizeSpeech(request);
+            // Write the binary audio content to a local file
+            const writeFile = util.promisify(fs.writeFile);
+            const filename = (0, path_1.join)(this.technology.rootDir, this.outputDir, `output-${thread.length}.mp3`);
+            yield writeFile(filename, ttsResponse.audioContent, 'binary');
+            const { exec } = require('child_process');
+            // for mac os
+            exec(`afplay ${filename}`);
             const { value } = yield prompts({
                 type: "text",
                 name: "value",
@@ -164,5 +187,5 @@ class Text extends basic_kodyfire_1.Concept {
             : (0, path_1.relative)(process.cwd(), __dirname);
     }
 }
-exports.Text = Text;
-//# sourceMappingURL=text.js.map
+exports.Tts = Tts;
+//# sourceMappingURL=tts.js.map

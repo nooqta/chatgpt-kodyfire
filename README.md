@@ -41,11 +41,11 @@ kody generate chatgpt:md topic-no-space
 #### `md`
 > Initiate a new chat session and saves the output to an md file.
 
-#### `x`
-> @todo: requested concepts by the community.
+#### `text`
+> Initiate a new chat session and saves the output to a text file.
 ##### Usage
 ```bash
-kody g chatgpt:md
+kody g chatgpt:text topic
 ```
 ##### Arguments
 

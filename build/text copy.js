@@ -41,6 +41,7 @@ class Text extends basic_kodyfire_1.Concept {
     }
     generate(_data, api = null, attemps = 0) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log('🤖 Hi there, how can I help you today?');
             let prompt = '';
             let thread = [];
             try {
@@ -165,4 +166,4 @@ class Text extends basic_kodyfire_1.Concept {
     }
 }
 exports.Text = Text;
-//# sourceMappingURL=text.js.map
+//# sourceMappingURL=text%20copy.js.map

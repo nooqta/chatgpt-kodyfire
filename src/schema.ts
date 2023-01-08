@@ -25,6 +25,14 @@ export const text = {
   },
   required: ['name'],
 }
+export const tts = {
+  type: 'object',
+  properties: {
+    name: { type: 'string' },
+    outputDir: { type: 'string' }
+  },
+  required: ['name'],
+}
 
 export const conceptArray = {
   type: 'array',
@@ -38,6 +46,10 @@ export const textArray = {
   type: 'array',
   items: text,
 };
+export const ttsArray = {
+  type: 'array',
+  items: text,
+};
 export const schema = {
   type: 'object',
   properties: {
@@ -47,6 +59,7 @@ export const schema = {
     concept: conceptArray,
     md: mdArray,
     text: textArray,
+    tts: ttsArray
   },
   required: ['name'],
 };

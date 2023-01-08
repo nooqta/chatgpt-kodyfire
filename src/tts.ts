@@ -6,7 +6,10 @@ import { Concept as BaseConcept } from "basic-kodyfire";
 import { Engine } from "./engine";
 import { requiresm } from "esm-ts";
 
-export class Text extends BaseConcept {
+const fs = require('fs');
+const util = require('util');
+
+export class Tts extends BaseConcept {
   extension = ".txt"; // replace with your extension
   params: any;
   constructor(concept: Partial<IConcept>, technology: ITechnology) {
@@ -116,7 +119,7 @@ export class Text extends BaseConcept {
       }
     }
     // @ts-ignore
-    _data.thread = thread.join("\\");
+    _data.thread = thread;
     await api.closeSession();
     // We resolve the template name here
     _data.template = this.resolveTemplateName(_data.template, this.name);
@@ -142,9 +145,32 @@ export class Text extends BaseConcept {
     keepConversation: boolean,
     prompt: any
   ) {
-    const { response } = res;
+    let { response } = res;
     const md = require("cli-md");
-    thread.push(await this.markdownToText(response));
+    const text = await this.markdownToText(response);
+    thread.push(text);
+    const textToSpeech = require('@google-cloud/text-to-speech');
+   
+  // Creates a client
+  const client = new textToSpeech.TextToSpeechClient();
+  // Construct the request
+  const request = {
+    input: {text: text},
+    // Select the language and SSML voice gender (optional)
+    voice: {languageCode: "ar-XA",name: "ar-XA-Wavenet-B"},
+    // select the type of audio encoding
+    audioConfig: {audioEncoding: 'MP3'},
+  };
+
+  // Performs the text-to-speech request
+  const [ ttsResponse ] = await client.synthesizeSpeech(request);
+  // Write the binary audio content to a local file
+  const writeFile = util.promisify(fs.writeFile);
+  const filename = join(this.technology.rootDir,this.outputDir, `output-${thread.length}.mp3`);
+  await writeFile(filename, ttsResponse.audioContent, 'binary');
+  const { exec } = require('child_process');
+  // for mac os
+  exec(`afplay ${filename}`)
     const { value } = await prompts(
       {
         type: "text",

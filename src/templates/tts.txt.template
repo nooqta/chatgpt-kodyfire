@@ -1,0 +1,3 @@
+{{#each thread}}
+{{ this }}
+{{/each}}

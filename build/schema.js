@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.schema = exports.textArray = exports.mdArray = exports.conceptArray = exports.text = exports.md = exports.concept = void 0;
+exports.schema = exports.ttsArray = exports.textArray = exports.mdArray = exports.conceptArray = exports.tts = exports.text = exports.md = exports.concept = void 0;
 exports.concept = {
     type: 'object',
     properties: {
@@ -27,6 +27,14 @@ exports.text = {
     },
     required: ['name'],
 };
+exports.tts = {
+    type: 'object',
+    properties: {
+        name: { type: 'string' },
+        outputDir: { type: 'string' }
+    },
+    required: ['name'],
+};
 exports.conceptArray = {
     type: 'array',
     items: exports.concept,
@@ -39,6 +47,10 @@ exports.textArray = {
     type: 'array',
     items: exports.text,
 };
+exports.ttsArray = {
+    type: 'array',
+    items: exports.text,
+};
 exports.schema = {
     type: 'object',
     properties: {
@@ -48,6 +60,7 @@ exports.schema = {
         concept: exports.conceptArray,
         md: exports.mdArray,
         text: exports.textArray,
+        tts: exports.ttsArray
     },
     required: ['name'],
 };
