@@ -6,8 +6,8 @@ import { Concept as BaseConcept } from "basic-kodyfire";
 import { Engine } from "./engine";
 import { requiresm } from "esm-ts";
 
-export class Md extends BaseConcept {
-  extension = ".md"; // replace with your extension
+export class Text extends BaseConcept {
+  extension = ".txt"; // replace with your extension
   params: any;
   constructor(concept: Partial<IConcept>, technology: ITechnology) {
     super(concept, technology);
@@ -33,6 +33,7 @@ export class Md extends BaseConcept {
   }
 
   async generate(_data: any, api: any = null, attemps = 0) {
+    console.log('🤖 Hi there, how can I help you today?');
     let prompt = '';
     let thread: any[] = [];
     try {
@@ -66,9 +67,10 @@ export class Md extends BaseConcept {
       if (!api) {
         api = new ChatGPTAPIBrowser({
           email: OPENAI_EMAIL,
-          password: OPENAI_PASSWORD,
+          password: OPENAI_PASSWORD
         });
       }
+
       await api.initSession();
       // send a message and wait for the response
       // @ts-ignore
@@ -143,7 +145,7 @@ export class Md extends BaseConcept {
   ) {
     const { response } = res;
     const md = require("cli-md");
-    thread.push(response);
+    thread.push(await this.markdownToText(response));
     const { value } = await prompts(
       {
         type: "text",
@@ -158,6 +160,18 @@ export class Md extends BaseConcept {
     );
     prompt = value;
     return { keepConversation, prompt, thread };
+  }
+
+  private async markdownToText(markdown?: string): Promise<string> {
+    // @ts-ignore
+    const {remark} = await requiresm('remark');
+    // @ts-ignore
+    const {stripMarkdown} = await requiresm('strip-markdown');
+    // @ts-ignore
+    return remark()
+      .use(stripMarkdown)
+      .processSync(markdown ?? '')
+      .toString()
   }
 
   // resolve template name if it does not have template extension

@@ -17,6 +17,14 @@ export const md = {
   },
   required: ['name'],
 }
+export const text = {
+  type: 'object',
+  properties: {
+    name: { type: 'string' },
+    outputDir: { type: 'string' }
+  },
+  required: ['name'],
+}
 
 export const conceptArray = {
   type: 'array',
@@ -26,6 +34,10 @@ export const mdArray = {
   type: 'array',
   items: md,
 };
+export const textArray = {
+  type: 'array',
+  items: text,
+};
 export const schema = {
   type: 'object',
   properties: {
@@ -34,6 +46,7 @@ export const schema = {
     rootDir: { type: 'string' },
     concept: conceptArray,
     md: mdArray,
+    text: textArray,
   },
   required: ['name'],
 };

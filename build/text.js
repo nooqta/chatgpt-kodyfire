@@ -9,17 +9,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Md = void 0;
+exports.Text = void 0;
 const path_1 = require("path");
 const core_1 = require("@angular-devkit/core");
 const pluralize = require("pluralize");
 const basic_kodyfire_1 = require("basic-kodyfire");
 const engine_1 = require("./engine");
 const esm_ts_1 = require("esm-ts");
-class Md extends basic_kodyfire_1.Concept {
+class Text extends basic_kodyfire_1.Concept {
     constructor(concept, technology) {
         super(concept, technology);
-        this.extension = ".md"; // replace with your extension
+        this.extension = ".txt"; // replace with your extension
         this.engine = new engine_1.Engine();
         this.params = technology.params;
         // Register functions you want to use in your templates with the engine builder registerHelper method.
@@ -41,6 +41,7 @@ class Md extends basic_kodyfire_1.Concept {
     }
     generate(_data, api = null, attemps = 0) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log('🤖 Hi there, how can I help you today?');
             let prompt = '';
             let thread = [];
             try {
@@ -68,7 +69,7 @@ class Md extends basic_kodyfire_1.Concept {
                 if (!api) {
                     api = new ChatGPTAPIBrowser({
                         email: OPENAI_EMAIL,
-                        password: OPENAI_PASSWORD,
+                        password: OPENAI_PASSWORD
                     });
                 }
                 yield api.initSession();
@@ -114,7 +115,7 @@ class Md extends basic_kodyfire_1.Concept {
         return __awaiter(this, void 0, void 0, function* () {
             const { response } = res;
             const md = require("cli-md");
-            thread.push(response);
+            thread.push(yield this.markdownToText(response));
             const { value } = yield prompts({
                 type: "text",
                 name: "value",
@@ -126,6 +127,19 @@ class Md extends basic_kodyfire_1.Concept {
             });
             prompt = value;
             return { keepConversation, prompt, thread };
+        });
+    }
+    markdownToText(markdown) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // @ts-ignore
+            const { remark } = yield (0, esm_ts_1.requiresm)('remark');
+            // @ts-ignore
+            const { stripMarkdown } = yield (0, esm_ts_1.requiresm)('strip-markdown');
+            // @ts-ignore
+            return remark()
+                .use(stripMarkdown)
+                .processSync(markdown !== null && markdown !== void 0 ? markdown : '')
+                .toString();
         });
     }
     // resolve template name if it does not have template extension
@@ -151,5 +165,5 @@ class Md extends basic_kodyfire_1.Concept {
             : (0, path_1.relative)(process.cwd(), __dirname);
     }
 }
-exports.Md = Md;
-//# sourceMappingURL=md.js.map
+exports.Text = Text;
+//# sourceMappingURL=text.js.map

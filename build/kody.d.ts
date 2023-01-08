@@ -45,6 +45,21 @@ export declare class Kody extends BaseKody {
                     required: string[];
                 };
             };
+            text: {
+                type: string;
+                items: {
+                    type: string;
+                    properties: {
+                        name: {
+                            type: string;
+                        };
+                        outputDir: {
+                            type: string;
+                        };
+                    };
+                    required: string[];
+                };
+            };
         };
         required: string[];
     }, technology?: Technology);

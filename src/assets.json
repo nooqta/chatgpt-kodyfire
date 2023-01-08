@@ -1,5 +1,5 @@
 {
-  "name": "basic",
+  "name": "chatgpt",
   "version": "0.1",
   "rootDir": "out",
   "concepts": [
@@ -12,6 +12,13 @@
     },
     {
       "name": "md",
+      "outputDir": "",
+      "template": {
+        "path": "templates/"
+      }
+    },
+    {
+      "name": "text",
       "outputDir": "",
       "template": {
         "path": "templates/"
