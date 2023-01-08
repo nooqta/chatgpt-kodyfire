@@ -125,7 +125,7 @@ class Tts extends basic_kodyfire_1.Concept {
             const request = {
                 input: { text: text },
                 // Select the language and SSML voice gender (optional)
-                voice: { languageCode: "ar-XA", name: "ar-XA-Wavenet-B" },
+                voice: { languageCode: "en-US" },
                 // select the type of audio encoding
                 audioConfig: { audioEncoding: 'MP3' },
             };
@@ -136,8 +136,10 @@ class Tts extends basic_kodyfire_1.Concept {
             const filename = (0, path_1.join)(this.technology.rootDir, this.outputDir, `output-${thread.length}.mp3`);
             yield writeFile(filename, ttsResponse.audioContent, 'binary');
             const { exec } = require('child_process');
-            // for mac os
-            exec(`afplay ${filename}`);
+            const os = require('os');
+            const player = os.platform() == "darwin" ? "afplay" : (os.platform() == "win32" ? "start" : "play");
+            // for mac os, linux & windows only
+            exec(`${player} ${filename}`);
             const { value } = yield prompts({
                 type: "text",
                 name: "value",
