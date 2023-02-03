@@ -1,6 +1,6 @@
 {
   "name": "chatgpt-kodyfire",
-  "version": "0.1.18",
+  "version": "0.1.22",
   "description": "Generate x with chatgpt kodyfire",
   "main": "build/index.js",
   "scripts": {
@@ -54,5 +54,5 @@
     "@types/uuid": "^9.0.0",
     "copyfiles": "^2.4.1"
   },
-  "gitHead": "643ec6c1f1f27f6a943b09acb1f9d82785bdd803"
+  "gitHead": "1fda3df0e89edf35d4d4f3713b91c0df59792900"
 }
