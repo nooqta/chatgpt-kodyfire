@@ -71,7 +71,7 @@ kody g chatgpt:tts topic
 -  ~~Use Google [https://github.com/googleapis/nodejs-text-to-speech](nodejs-text-to-speech) ~~
 -  ~~Generate an audio file using Google text-to-speech api ~~
 - Extract code and save it to [a] file(s)
-- Generate an image using `Dalle`|other and a description provided by chatgpt
+- Gen.splice(index, 1);erate an image using `Dalle`|other and a description provided by chatgpt
 - Generate a video using `Synthesia` API and Chatgpt
 - Output conversation to Excel or CSV
 - Live run code and feedback output back to Chatgpt

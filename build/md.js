@@ -61,15 +61,17 @@ class Md extends basic_kodyfire_1.Concept {
                 if (!this.params.env || !this.params.env.OPENAI_EMAIL) {
                     throw new Error("Make sure you provide a Openai credentials in your .env file. \nie: OPENAI_EMAIL=your-openai-email\nOPENAI_PASSWORD=your-openai-password");
                 }
-                const { OPENAI_EMAIL, OPENAI_PASSWORD } = this.params.env;
                 const chatgpt = yield (0, esm_ts_1.requiresm)("chatgpt");
-                const { ChatGPTAPIBrowser } = chatgpt;
+                const { ChatGPTAPI } = chatgpt;
                 // use puppeteer to bypass cloudflare (headful because of captchas)
                 if (!api) {
-                    api = new ChatGPTAPIBrowser({
-                        email: OPENAI_EMAIL,
-                        password: OPENAI_PASSWORD,
+                    api = new ChatGPTAPI({
+                        apiKey: process.env.OPENAI_API_KEY
                     });
+                    // api = new ChatGPTAPIBrowser({
+                    //   email: OPENAI_EMAIL,
+                    //   password: OPENAI_PASSWORD,
+                    // });
                 }
                 yield api.initSession();
                 // send a message and wait for the response

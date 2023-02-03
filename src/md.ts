@@ -58,16 +58,19 @@ export class Md extends BaseConcept {
           "Make sure you provide a Openai credentials in your .env file. \nie: OPENAI_EMAIL=your-openai-email\nOPENAI_PASSWORD=your-openai-password"
         );
       }
-      const { OPENAI_EMAIL, OPENAI_PASSWORD } = this.params.env;
       const chatgpt: any = await requiresm("chatgpt");
-      const { ChatGPTAPIBrowser } = chatgpt;
+      const { ChatGPTAPI } = chatgpt;
 
       // use puppeteer to bypass cloudflare (headful because of captchas)
       if (!api) {
-        api = new ChatGPTAPIBrowser({
-          email: OPENAI_EMAIL,
-          password: OPENAI_PASSWORD,
-        });
+        api = new ChatGPTAPI({
+          apiKey: process.env.OPENAI_API_KEY
+        })
+        
+        // api = new ChatGPTAPIBrowser({
+        //   email: OPENAI_EMAIL,
+        //   password: OPENAI_PASSWORD,
+        // });
       }
       await api.initSession();
       // send a message and wait for the response

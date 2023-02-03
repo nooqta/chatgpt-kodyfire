@@ -1,6 +1,6 @@
 {
   "name": "chatgpt-kodyfire",
-  "version": "0.1.14",
+  "version": "0.1.18",
   "description": "Generate x with chatgpt kodyfire",
   "main": "build/index.js",
   "scripts": {
@@ -21,8 +21,8 @@
     "@google-cloud/text-to-speech": "^4.1.0",
     "ajv": "^8.6.3",
     "ava": "^5.1.0",
-    "basic-kodyfire": "^0.1.4",
-    "chatgpt": "^3.2.4",
+    "basic-kodyfire": "^0.1.7",
+    "chatgpt": "^4.1.1",
     "cli-md": "^1.2.0",
     "dotenv-safe": "^8.2.0",
     "esm-ts": "^0.0.3",
@@ -31,7 +31,7 @@
     "fs-extra": "^10.0.0",
     "handlebars": "^4.7.7",
     "handlebars-delimiters": "^1.0.0",
-    "kodyfire-core": "^0.1.4",
+    "kodyfire-core": "^0.1.7",
     "moment": "^2.29.1",
     "ora": "^6.1.2",
     "p-timeout": "^6.0.0",
