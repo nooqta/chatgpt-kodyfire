@@ -24,6 +24,7 @@
     "basic-kodyfire": "^0.1.7",
     "chatgpt": "^4.1.1",
     "cli-md": "^1.2.0",
+    "dotenv": "^16.0.3",
     "dotenv-safe": "^8.2.0",
     "esm-ts": "^0.0.3",
     "eventsource-parser": "^0.0.5",

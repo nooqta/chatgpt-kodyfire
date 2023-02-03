@@ -1,4 +1,27 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -16,10 +39,12 @@ const pluralize = require("pluralize");
 const basic_kodyfire_1 = require("basic-kodyfire");
 const engine_1 = require("./engine");
 const esm_ts_1 = require("esm-ts");
+const dotenv = __importStar(require("dotenv"));
 class Md extends basic_kodyfire_1.Concept {
     constructor(concept, technology) {
         super(concept, technology);
         this.extension = ".md"; // replace with your extension
+        dotenv.config();
         this.engine = new engine_1.Engine();
         this.params = technology.params;
         // Register functions you want to use in your templates with the engine builder registerHelper method.
@@ -68,12 +93,7 @@ class Md extends basic_kodyfire_1.Concept {
                     api = new ChatGPTAPI({
                         apiKey: process.env.OPENAI_API_KEY
                     });
-                    // api = new ChatGPTAPIBrowser({
-                    //   email: OPENAI_EMAIL,
-                    //   password: OPENAI_PASSWORD,
-                    // });
                 }
-                yield api.initSession();
                 // send a message and wait for the response
                 // @ts-ignore
                 const { oraPromise } = (yield (0, esm_ts_1.requiresm)("ora"));
@@ -104,7 +124,6 @@ class Md extends basic_kodyfire_1.Concept {
             }
             // @ts-ignore
             _data.thread = thread.join("\\");
-            yield api.closeSession();
             // We resolve the template name here
             _data.template = this.resolveTemplateName(_data.template, this.name);
             const template = yield this.engine.read((0, path_1.join)(this.getTemplatesPath(), this.template.path), _data.template);
@@ -114,8 +133,8 @@ class Md extends basic_kodyfire_1.Concept {
     }
     prompt(res, thread, prompts, keepConversation, prompt) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { response } = res;
-            const md = require("cli-md");
+            const { text: response } = res;
+            const md = yield require("cli-md");
             thread.push(response);
             const { value } = yield prompts({
                 type: "text",

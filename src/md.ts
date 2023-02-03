@@ -5,12 +5,14 @@ const pluralize = require("pluralize");
 import { Concept as BaseConcept } from "basic-kodyfire";
 import { Engine } from "./engine";
 import { requiresm } from "esm-ts";
+import * as dotenv from 'dotenv';
 
 export class Md extends BaseConcept {
   extension = ".md"; // replace with your extension
   params: any;
   constructor(concept: Partial<IConcept>, technology: ITechnology) {
     super(concept, technology);
+    dotenv.config();
     this.engine = new Engine();
     this.params = technology.params;
     // Register functions you want to use in your templates with the engine builder registerHelper method.
@@ -66,13 +68,8 @@ export class Md extends BaseConcept {
         api = new ChatGPTAPI({
           apiKey: process.env.OPENAI_API_KEY
         })
-        
-        // api = new ChatGPTAPIBrowser({
-        //   email: OPENAI_EMAIL,
-        //   password: OPENAI_PASSWORD,
-        // });
       }
-      await api.initSession();
+
       // send a message and wait for the response
       // @ts-ignore
       const {oraPromise}: any = (await requiresm("ora"));
@@ -119,7 +116,6 @@ export class Md extends BaseConcept {
     }
     // @ts-ignore
     _data.thread = thread.join("\\");
-    await api.closeSession();
     // We resolve the template name here
     _data.template = this.resolveTemplateName(_data.template, this.name);
     const template = await this.engine.read(
@@ -144,8 +140,8 @@ export class Md extends BaseConcept {
     keepConversation: boolean,
     prompt: any
   ) {
-    const { response } = res;
-    const md = require("cli-md");
+    const { text: response } = res;
+    const md = await require("cli-md");
     thread.push(response);
     const { value } = await prompts(
       {
