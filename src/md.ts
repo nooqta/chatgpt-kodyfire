@@ -63,7 +63,6 @@ export class Md extends BaseConcept {
       const chatgpt: any = await requiresm("chatgpt");
       const { ChatGPTAPI } = chatgpt;
 
-      // use puppeteer to bypass cloudflare (headful because of captchas)
       if (!api) {
         api = new ChatGPTAPI({
           apiKey: process.env.OPENAI_API_KEY

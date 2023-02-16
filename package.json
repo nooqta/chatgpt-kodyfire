@@ -22,7 +22,7 @@
     "ajv": "^8.6.3",
     "ava": "^5.1.0",
     "basic-kodyfire": "^0.1.7",
-    "chatgpt": "^4.1.1",
+    "chatgpt": "^4.4.0",
     "cli-md": "^1.2.0",
     "dotenv": "^16.0.3",
     "dotenv-safe": "^8.2.0",

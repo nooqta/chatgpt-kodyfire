@@ -88,7 +88,6 @@ class Md extends basic_kodyfire_1.Concept {
                 }
                 const chatgpt = yield (0, esm_ts_1.requiresm)("chatgpt");
                 const { ChatGPTAPI } = chatgpt;
-                // use puppeteer to bypass cloudflare (headful because of captchas)
                 if (!api) {
                     api = new ChatGPTAPI({
                         apiKey: process.env.OPENAI_API_KEY

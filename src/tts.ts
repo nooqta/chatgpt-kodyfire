@@ -61,19 +61,15 @@ export class Tts extends BaseConcept {
           "Make sure you provide a Openai credentials in your .env file. \nie: OPENAI_EMAIL=your-openai-email\nOPENAI_PASSWORD=your-openai-password"
         );
       }
-      const { OPENAI_EMAIL, OPENAI_PASSWORD } = this.params.env;
       const chatgpt: any = await requiresm("chatgpt");
-      const { ChatGPTAPIBrowser } = chatgpt;
+      const { ChatGPTAPI } = chatgpt;
 
-      // use puppeteer to bypass cloudflare (headful because of captchas)
       if (!api) {
-        api = new ChatGPTAPIBrowser({
-          email: OPENAI_EMAIL,
-          password: OPENAI_PASSWORD
-        });
+        api = new ChatGPTAPI({
+          apiKey: process.env.OPENAI_API_KEY
+        })
       }
 
-      await api.initSession();
       // send a message and wait for the response
       // @ts-ignore
       const {oraPromise}: any = (await requiresm("ora"));
@@ -118,9 +114,10 @@ export class Tts extends BaseConcept {
         await this.generate(_data, api);
       }
     }
+    
     // @ts-ignore
     _data.thread = thread;
-    await api.closeSession();
+    
     // We resolve the template name here
     _data.template = this.resolveTemplateName(_data.template, this.name);
     const template = await this.engine.read(

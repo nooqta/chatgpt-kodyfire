@@ -63,17 +63,13 @@ class Tts extends basic_kodyfire_1.Concept {
                 if (!this.params.env || !this.params.env.OPENAI_EMAIL) {
                     throw new Error("Make sure you provide a Openai credentials in your .env file. \nie: OPENAI_EMAIL=your-openai-email\nOPENAI_PASSWORD=your-openai-password");
                 }
-                const { OPENAI_EMAIL, OPENAI_PASSWORD } = this.params.env;
                 const chatgpt = yield (0, esm_ts_1.requiresm)("chatgpt");
-                const { ChatGPTAPIBrowser } = chatgpt;
-                // use puppeteer to bypass cloudflare (headful because of captchas)
+                const { ChatGPTAPI } = chatgpt;
                 if (!api) {
-                    api = new ChatGPTAPIBrowser({
-                        email: OPENAI_EMAIL,
-                        password: OPENAI_PASSWORD
+                    api = new ChatGPTAPI({
+                        apiKey: process.env.OPENAI_API_KEY
                     });
                 }
-                yield api.initSession();
                 // send a message and wait for the response
                 // @ts-ignore
                 const { oraPromise } = (yield (0, esm_ts_1.requiresm)("ora"));
@@ -104,7 +100,6 @@ class Tts extends basic_kodyfire_1.Concept {
             }
             // @ts-ignore
             _data.thread = thread;
-            yield api.closeSession();
             // We resolve the template name here
             _data.template = this.resolveTemplateName(_data.template, this.name);
             const template = yield this.engine.read((0, path_1.join)(this.getTemplatesPath(), this.template.path), _data.template);
