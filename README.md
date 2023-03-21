@@ -15,10 +15,11 @@
 npm install -g kodyfire-cli
 ```
 
-2. Node version >= 18
-3. `OPENAI_EMAIL` and `OPENAI_PASSWORD` in .env
-these are your [Openai](https://chat.openai.com/auth/login) credentials.
-4. The package uses [chatgpt-api](https://github.com/transitive-bullshit/chatgpt-api). Puppeteer is used to handle the authentication. You will need to manually handle any recaptcha. This will probably change once [Openai](https://openai.com/blog/chatgpt/) releases the official api.
+1. Node version >= 18
+2. `OPENAI_API_KEY` in .env.
+head over to [Openai]([Openai](https://platform.openai.com/account/api-keys)) to create a key if don't have one.
+3. TTS requires that you are authenticated using `gcloud`. You'll need a Google Cloud project with Text-To-Spech API enabled. [Google Text-To-Speech guide](https://cloud.google.com/text-to-speech/docs/before-you-begin)
+
 
 ## Install
 
