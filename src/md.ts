@@ -6,6 +6,7 @@ import { Concept as BaseConcept } from "basic-kodyfire";
 import { Engine } from "./engine";
 import { requiresm } from "esm-ts";
 import * as dotenv from 'dotenv';
+import { Configuration, OpenAIApi } from "openai"
 
 export class Md extends BaseConcept {
   extension = ".md"; // replace with your extension
@@ -55,26 +56,29 @@ export class Md extends BaseConcept {
       );
       prompt = value;
       // We check if the user has provided a session token
-      if (!this.params.env || !this.params.env.OPENAI_EMAIL) {
+      if (!this.params.env || !this.params.env.OPENAI_API_KEY) {
         throw new Error(
-          "Make sure you provide a Openai credentials in your .env file. \nie: OPENAI_EMAIL=your-openai-email\nOPENAI_PASSWORD=your-openai-password"
+          "Make sure you provide a Openai api key in your .env file. \nie: OPENAI_API_KEY=your-openai-api-key"
         );
       }
-      const chatgpt: any = await requiresm("chatgpt");
-      const { ChatGPTAPI } = chatgpt;
 
       if (!api) {
-        api = new ChatGPTAPI({
-          apiKey: process.env.OPENAI_API_KEY
-        })
+        api = new OpenAIApi(
+          new Configuration({
+            apiKey: process.env.OPENAI_API_KEY,
+          })
+        )
       }
 
       // send a message and wait for the response
       // @ts-ignore
       const {oraPromise}: any = (await requiresm("ora"));
-      let conversationId,
-        parentMessageId = null;
-      let res = await oraPromise(api.sendMessage(prompt, {}), {
+
+      let res = await oraPromise(api.createChatCompletion({
+        model: "gpt-3.5-turbo",
+        // model: "code-davinci-002",
+        messages: [{ role: "user", content: prompt }],
+      }), {
         text: prompt,
       });
       ({ keepConversation, prompt, thread } = await this.prompt(
@@ -86,17 +90,13 @@ export class Md extends BaseConcept {
       ));
       
       while (keepConversation) {
-        conversationId = res.conversationId;
-        parentMessageId = res.messageId;
-        res = await oraPromise(
-          api.sendMessage(prompt, {
-            conversationId,
-            parentMessageId,
-          }),
-          {
-            text: prompt,
-          }
-        );
+        
+        res = await oraPromise(api.createChatCompletion({
+          model: "code-davinci-002",
+          messages: [{ role: "user", content: prompt }],
+        }), {
+          text: prompt,
+        });
         // @ts-ignore
         ({ keepConversation, prompt, thread } = await this.prompt(
           res,
@@ -139,14 +139,15 @@ export class Md extends BaseConcept {
     keepConversation: boolean,
     prompt: any
   ) {
-    const { text: response } = res;
+    console.log(res.data.choices)
+    const { choices: response } = res.data;
     const md = await require("cli-md");
     thread.push(response);
     const { value } = await prompts(
       {
         type: "text",
         name: "value",
-        message: `${md(response)}\n`,
+        message: `${md(response[0].message.content)}\n`,
       },
       {
         onCancel: () => {
@@ -170,7 +171,7 @@ export class Md extends BaseConcept {
   getFilename(data: any) {
     if (data.filename) return data.filename;
     return join(
-      data.outputDir,
+      data.outputDir || "",
       `${data.name}.${data.extension || this.getExtension(data.template)}`
     );
   }

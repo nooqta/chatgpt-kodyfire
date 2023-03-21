@@ -56,9 +56,9 @@ export class Tts extends BaseConcept {
       );
       prompt = value;
       // We check if the user has provided a session token
-      if (!this.params.env || !this.params.env.OPENAI_EMAIL) {
+      if (!this.params.env || !this.params.env.OPENAI_API_KEY) {
         throw new Error(
-          "Make sure you provide a Openai credentials in your .env file. \nie: OPENAI_EMAIL=your-openai-email\nOPENAI_PASSWORD=your-openai-password"
+          "Make sure you provide a Openai api key in your .env file. \nie: OPENAI_API_KEY=your-openai-api-key"
         );
       }
       const chatgpt: any = await requiresm("chatgpt");
@@ -142,7 +142,8 @@ export class Tts extends BaseConcept {
     keepConversation: boolean,
     prompt: any
   ) {
-    let { response } = res;
+    
+    let { text: response } = res;
     const md = require("cli-md");
     const text = await this.markdownToText(response);
     thread.push(text);
@@ -210,7 +211,7 @@ export class Tts extends BaseConcept {
   getFilename(data: any) {
     if (data.filename) return data.filename;
     return join(
-      data.outputDir,
+      data.outputDir || "",
       `${data.name}.${data.extension || this.getExtension(data.template)}`
     );
   }

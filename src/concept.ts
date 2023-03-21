@@ -60,7 +60,7 @@ export class Concept extends BaseConcept {
   getFilename(data: any) {
     if (data.filename) return data.filename;
     return join(
-      data.outputDir,
+      data.outputDir || "",
       `${data.name}.${data.extension || this.getExtension(data.template)}`
     );
   }
