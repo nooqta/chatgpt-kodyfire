@@ -16,7 +16,7 @@ npm install -g kodyfire-cli
 ```
 
 1. Node version >= 18
-2. `OPENAI_API_KEY` in .env.
+2. `OPENAI_API_KEY` in your.env file. 
 head over to [Openai]([Openai](https://platform.openai.com/account/api-keys)) to create a key if don't have one.
 3. TTS requires that you are authenticated using `gcloud`. You'll need a Google Cloud project with Text-To-Speech API enabled. [Google Text-To-Speech guide](https://cloud.google.com/text-to-speech/docs/before-you-begin)
 
