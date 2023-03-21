@@ -58,8 +58,8 @@ class Text extends basic_kodyfire_1.Concept {
                 });
                 prompt = value;
                 // We check if the user has provided a session token
-                if (!this.params.env || !this.params.env.OPENAI_EMAIL) {
-                    throw new Error("Make sure you provide a Openai credentials in your .env file. \nie: OPENAI_EMAIL=your-openai-email\nOPENAI_PASSWORD=your-openai-password");
+                if (!this.params.env || !this.params.env.OPENAI_API_KEY) {
+                    throw new Error("Make sure you provide a Openai api key in your .env file. \nie: OPENAI_API_KEY=your-openai-api-key");
                 }
                 const chatgpt = yield (0, esm_ts_1.requiresm)("chatgpt");
                 const { ChatGPTAPI } = chatgpt;
@@ -148,7 +148,7 @@ class Text extends basic_kodyfire_1.Concept {
     getFilename(data) {
         if (data.filename)
             return data.filename;
-        return (0, path_1.join)(data.outputDir, `${data.name}.${data.extension || this.getExtension(data.template)}`);
+        return (0, path_1.join)(data.outputDir || "", `${data.name}.${data.extension || this.getExtension(data.template)}`);
     }
     getExtension(templateName) {
         return templateName.replace(".template", "").split(".").pop();

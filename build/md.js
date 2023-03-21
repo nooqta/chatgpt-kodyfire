@@ -1,11 +1,7 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -40,6 +36,7 @@ const basic_kodyfire_1 = require("basic-kodyfire");
 const engine_1 = require("./engine");
 const esm_ts_1 = require("esm-ts");
 const dotenv = __importStar(require("dotenv"));
+const openai_1 = require("openai");
 class Md extends basic_kodyfire_1.Concept {
     constructor(concept, technology) {
         super(concept, technology);
@@ -83,30 +80,29 @@ class Md extends basic_kodyfire_1.Concept {
                 });
                 prompt = value;
                 // We check if the user has provided a session token
-                if (!this.params.env || !this.params.env.OPENAI_EMAIL) {
-                    throw new Error("Make sure you provide a Openai credentials in your .env file. \nie: OPENAI_EMAIL=your-openai-email\nOPENAI_PASSWORD=your-openai-password");
+                if (!this.params.env || !this.params.env.OPENAI_API_KEY) {
+                    throw new Error("Make sure you provide a Openai api key in your .env file. \nie: OPENAI_API_KEY=your-openai-api-key");
                 }
-                const chatgpt = yield (0, esm_ts_1.requiresm)("chatgpt");
-                const { ChatGPTAPI } = chatgpt;
                 if (!api) {
-                    api = new ChatGPTAPI({
-                        apiKey: process.env.OPENAI_API_KEY
-                    });
+                    api = new openai_1.OpenAIApi(new openai_1.Configuration({
+                        apiKey: process.env.OPENAI_API_KEY,
+                    }));
                 }
                 // send a message and wait for the response
                 // @ts-ignore
                 const { oraPromise } = (yield (0, esm_ts_1.requiresm)("ora"));
-                let conversationId, parentMessageId = null;
-                let res = yield oraPromise(api.sendMessage(prompt, {}), {
+                let res = yield oraPromise(api.createChatCompletion({
+                    model: "gpt-3.5-turbo",
+                    // model: "code-davinci-002",
+                    messages: [{ role: "user", content: prompt }],
+                }), {
                     text: prompt,
                 });
                 ({ keepConversation, prompt, thread } = yield this.prompt(res, thread, prompts, keepConversation, prompt));
                 while (keepConversation) {
-                    conversationId = res.conversationId;
-                    parentMessageId = res.messageId;
-                    res = yield oraPromise(api.sendMessage(prompt, {
-                        conversationId,
-                        parentMessageId,
+                    res = yield oraPromise(api.createChatCompletion({
+                        model: "code-davinci-002",
+                        messages: [{ role: "user", content: prompt }],
                     }), {
                         text: prompt,
                     });
@@ -132,13 +128,14 @@ class Md extends basic_kodyfire_1.Concept {
     }
     prompt(res, thread, prompts, keepConversation, prompt) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { text: response } = res;
+            console.log(res.data.choices);
+            const { choices: response } = res.data;
             const md = yield require("cli-md");
             thread.push(response);
             const { value } = yield prompts({
                 type: "text",
                 name: "value",
-                message: `${md(response)}\n`,
+                message: `${md(response[0].message.content)}\n`,
             }, {
                 onCancel: () => {
                     keepConversation = false;
@@ -160,7 +157,7 @@ class Md extends basic_kodyfire_1.Concept {
     getFilename(data) {
         if (data.filename)
             return data.filename;
-        return (0, path_1.join)(data.outputDir, `${data.name}.${data.extension || this.getExtension(data.template)}`);
+        return (0, path_1.join)(data.outputDir || "", `${data.name}.${data.extension || this.getExtension(data.template)}`);
     }
     getExtension(templateName) {
         return templateName.replace(".template", "").split(".").pop();

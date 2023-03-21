@@ -34,6 +34,7 @@
     "handlebars-delimiters": "^1.0.0",
     "kodyfire-core": "^0.1.7",
     "moment": "^2.29.1",
+    "openai": "^3.2.1",
     "ora": "^6.1.2",
     "p-timeout": "^6.0.0",
     "pluralize": "^8.0.0",
